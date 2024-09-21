@@ -2,7 +2,7 @@ all: foo.so run
 foo.so: triton-aoti.py
 	python3 triton-aoti.py
 run: run.cpp
-	g++ -o run run.cpp -ldl -rdynamic
+	g++ -g -o run run.cpp -ldl -rdynamic
 test: foo.so run
 	./run
 clean:
