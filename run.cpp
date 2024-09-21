@@ -70,6 +70,6 @@ int main() {
     fprintf(stderr, "Failed to open shared library: %s\n", dlerror());
     exit(1);
   }
-  printf("handle is %p", handle);
+  printf("handle is %p\n", handle);
   return 0;
 }
