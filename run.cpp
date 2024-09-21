@@ -54,9 +54,8 @@ extern "C" {
     std::string msg = std::string(__func__) + " DNE";
     perror(msg.c_str());
   }
-  void aoti_torch_dtype_float32() {
-    std::string msg = std::string(__func__) + " DNE";
-    perror(msg.c_str());
+  int32_t aoti_torch_dtype_float32() {
+    return 6;
   }
   void aoti_torch_empty_strided() {
     std::string msg = std::string(__func__) + " DNE";

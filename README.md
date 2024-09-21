@@ -10,7 +10,7 @@ APIs to shim:
 - [ ] aoti_torch_delete_tensor_object
 - [ ] aoti_torch_device_type_cpu
 - [x] aoti_torch_device_type_cuda
-- [ ] aoti_torch_dtype_float32
+- [x] aoti_torch_dtype_float32
 - [ ] aoti_torch_empty_strided
 - [ ] aoti_torch_get_data_ptr 
 - [ ] aoti_torch_get_storage_offset
