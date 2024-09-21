@@ -2,6 +2,7 @@
 #include <dlfcn.h>
 #include <stdlib.h>
 #include <string>
+#include <iostream>
 
 extern "C" {
   int32_t aoti_torch_device_type_cuda() {
@@ -66,7 +67,7 @@ extern "C" {
   struct AOTInductorModelContainerOpaque;
   using AOTInductorModelContainerHandle = AOTInductorModelContainerOpaque*;
 
-  extern AOTIRuntimeError AOTInductorModelContainerCreateWithDevice(
+  AOTIRuntimeError AOTInductorModelContainerCreateWithDevice(
     AOTInductorModelContainerHandle* container_handle,
     size_t num_models,
     const char* device_str,
@@ -90,5 +91,6 @@ int main() {
   size_t num_inputs = 33333;
   err = AOTInductorModelContainerGetNumInputs(container_handle_, &num_inputs);
   printf("num_inputs=%lu\n", num_inputs);
+
   return 0;
 }
