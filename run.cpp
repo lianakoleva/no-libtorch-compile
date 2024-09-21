@@ -54,9 +54,8 @@ extern "C" {
     std::string msg = std::string(__func__) + " DNE";
     perror(msg.c_str());
   }
-  void aoti_torch_dtype_float32() {
-    std::string msg = std::string(__func__) + " DNE";
-    perror(msg.c_str());
+  int aoti_torch_dtype_float32() {
+    return -11;
   }
   void aoti_torch_empty_strided() {
     std::string msg = std::string(__func__) + " DNE";
@@ -71,6 +70,6 @@ int main() {
     fprintf(stderr, "Failed to open shared library: %s\n", dlerror());
     exit(1);
   }
-  printf("handle is %p", handle);
+  printf("handle is %p\n", handle);
   return 0;
 }
