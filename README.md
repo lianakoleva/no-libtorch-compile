@@ -17,4 +17,4 @@ APIs to shim:
 - [ ] aoti_torch_get_storage_size
 - [ ] aoti_torch_get_strides 
 - [x] aoti_torch_grad_mode_is_enabled 
-- [ ] aoti_torch_grad_mode_set_enabled
+- [x] aoti_torch_grad_mode_set_enabled
