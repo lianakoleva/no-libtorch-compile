@@ -58,4 +58,4 @@ torch._export.aot_compile(triton_transpose_acc, args, {}, options={"aot_inductor
 
 # Remove rogue dependencies
 from subprocess import check_call
-check_call("patchelf --remove-needed libtorch.so --remove-needed libtorch_cuda.so --remove-needed libtorch_cpu.so foo.so", shell=True)
+check_call("patchelf --remove-needed libtorch.so --remove-needed libtorch_cuda.so --remove-needed libtorch_cpu.so --add-needed libcudart.so foo.so", shell=True)
