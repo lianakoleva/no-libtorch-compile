@@ -8,6 +8,12 @@ extern "C" {
   }
 }
 
+extern "C" {
+  int32_t aoti_torch_grad_mode_is_enabled() {
+    return false;
+  }
+}
+
 int main() {
   dlopen(NULL, RTLD_GLOBAL);
   void *handle = dlopen("foo.so", RTLD_NOW);
