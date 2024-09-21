@@ -55,3 +55,7 @@ torch.manual_seed(0)
 N = 64
 args = torch.randn(N, N), torch.randn(N, N)
 torch._export.aot_compile(triton_transpose_acc, args, {}, options={"aot_inductor.output_path": f"foo.so", "abi_compatible": True})
+
+# Remove rogue dependencies
+from subprocess import check_call
+check_call("patchelf --remove-needed libtorch.so --remove-needed libtorch_cuda.so --remove-needed libtorch_cpu.so foo.so", shell=True)
