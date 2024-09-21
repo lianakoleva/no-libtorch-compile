@@ -61,15 +61,29 @@ extern "C" {
     std::string msg = std::string(__func__) + " DNE";
     perror(msg.c_str());
   }
+
+  using AOTIRuntimeError = int32_t;
+
+  struct AOTInductorModelContainerOpaque;
+  using AOTInductorModelContainerHandle = AOTInductorModelContainerOpaque*;
+
+  extern AOTIRuntimeError AOTInductorModelContainerCreateWithDevice(
+    AOTInductorModelContainerHandle* container_handle,
+    size_t num_models,
+    const char* device_str,
+    const char* cubin_dir);
 }
 
 int main() {
-  dlopen(NULL, RTLD_GLOBAL);
-  void *handle = dlopen("foo.so", RTLD_NOW);
-  if (handle == NULL) {
-    fprintf(stderr, "Failed to open shared library: %s\n", dlerror());
-    exit(1);
-  }
-  printf("handle is %p\n", handle);
+  AOTInductorModelContainerHandle container_handle_ = nullptr;
+
+  AOTIRuntimeError err;
+
+  err = AOTInductorModelContainerCreateWithDevice(
+    &container_handle_,
+    1,
+    "cuda",
+    nullptr);
+
   return 0;
 }
