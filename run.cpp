@@ -71,6 +71,9 @@ extern "C" {
     size_t num_models,
     const char* device_str,
     const char* cubin_dir);
+  AOTIRuntimeError AOTInductorModelContainerGetNumInputs(
+    AOTInductorModelContainerHandle container_handle,
+    size_t* ret_num_inputs);
 }
 
 int main() {
@@ -84,5 +87,8 @@ int main() {
     "cuda",
     nullptr);
   printf("container_handle=%p\n", container_handle_);
+  size_t num_inputs = 33333;
+  err = AOTInductorModelContainerGetNumInputs(container_handle_, &num_inputs);
+  printf("num_inputs=%lu\n", num_inputs);
   return 0;
 }
