@@ -83,6 +83,6 @@ int main() {
     1,
     "cuda",
     nullptr);
-
+  printf("container_handle=%p\n", container_handle_);
   return 0;
 }
