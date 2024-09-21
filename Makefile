@@ -1,3 +1,4 @@
+all: foo.so run
 foo.so: triton-aoti.py
 	python3 triton-aoti.py
 run: run.cpp
