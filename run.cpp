@@ -34,9 +34,8 @@ extern "C" {
     std::string msg = std::string(__func__) + " DNE";
     perror(msg.c_str());
   }
-  void aoti_torch_device_type_cpu() {
-    std::string msg = std::string(__func__) + " DNE";
-    perror(msg.c_str());
+  int aoti_torch_device_type_cpu() {
+    return 0;
   }
   void aoti_torch_delete_tensor_object() {
     std::string msg = std::string(__func__) + " DNE";
