@@ -10,7 +10,7 @@ extern "C" {
 
 int main() {
   dlopen(NULL, RTLD_GLOBAL);
-  void *handle = dlopen("foo.so", RTLD_NOW | RTLD_GLOBAL);
+  void *handle = dlopen("foo.so", RTLD_NOW);
   if (handle == NULL) {
     fprintf(stderr, "Failed to open shared library: %s\n", dlerror());
     exit(1);
