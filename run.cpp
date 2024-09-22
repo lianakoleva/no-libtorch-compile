@@ -57,7 +57,7 @@ AOTIRuntimeError AOTInductorModelContainerRun(
     AtenTensorHandle tensor,
     void** ret_data_ptr) {
     *ret_data_ptr = tensor->data_ptr;
-   return -2;
+   return 0;
   }
   AOTITorchError aoti_torch_get_storage_offset(
     AtenTensorHandle tensor,
@@ -165,9 +165,12 @@ int main() {
     &num_inputs);
   std::cout<<num_inputs<<std::endl;
 
-
+  int64_t sizes[2] = {32, 32};
+  int64_t strides[2] = {32, 1};
   AtenTensorHandle inputs[2];
-  AtenTensorHandle outputs[1];
+  aoti_torch_empty_strided(2, sizes, strides, 5, 1, 0, inputs + 0);
+  aoti_torch_empty_strided(2, sizes, strides, 5, 1, 0, inputs + 1);
+  AtenTensorHandle outputs[1] = {nullptr};
   AOTInductorModelContainerRun(container_handle_, inputs, 2, outputs, 1, nullptr, nullptr);
 
 
