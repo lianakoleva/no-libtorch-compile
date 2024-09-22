@@ -141,7 +141,9 @@ AOTIRuntimeError AOTInductorModelContainerRun(
     *ret_new_tensor = new AtenTensor();
     std::cout<<"Created "<<ret_new_tensor<<std::endl;
 
-    (*ret_new_tensor)->data_ptr = (void*)123;
+    void* ptr;
+    cudaMalloc(&ptr, 1024);
+    (*ret_new_tensor)->data_ptr = ptr;
     return 0;
   }
 }
