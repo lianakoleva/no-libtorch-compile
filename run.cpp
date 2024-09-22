@@ -52,7 +52,7 @@ AOTIRuntimeError AOTInductorModelContainerRun(
     return false;
   }
   void aoti_torch_grad_mode_set_enabled(bool enabled) {
-     std::cout << __func__ << " vous est ici!" << std::endl;
+     std::cout << __func__ << " tu es ici!" << std::endl;
   }
   AOTITorchError aoti_torch_get_data_ptr(
     AtenTensorHandle tensor,
