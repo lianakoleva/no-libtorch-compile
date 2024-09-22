@@ -17,6 +17,8 @@ extern "C" {
 
   struct AOTInductorModelContainerOpaque;
   using AOTInductorModelContainerHandle = AOTInductorModelContainerOpaque*;
+  using AOTInductorStreamHandle = void*;
+  using AOTIProxyExecutorHandle = void*;
 
   AOTIRuntimeError AOTInductorModelContainerCreateWithDevice(
     AOTInductorModelContainerHandle* container_handle,
@@ -27,6 +29,19 @@ extern "C" {
   AOTIRuntimeError AOTInductorModelContainerGetNumInputs(
     AOTInductorModelContainerHandle container_handle,
     size_t* num_constants);
+
+AOTIRuntimeError AOTInductorModelContainerRun(
+    AOTInductorModelContainerHandle container_handle,
+    AtenTensorHandle* input_handles, // array of input AtenTensorHandle; handles
+                                     // are stolen; the array itself is borrowed
+    size_t num_inputs,
+    AtenTensorHandle*
+        output_handles, // array for writing output AtenTensorHandle; handles
+                        // will be stolen by the caller; the array itself is
+                        // borrowed
+    size_t num_outputs,
+    AOTInductorStreamHandle stream_handle,
+    AOTIProxyExecutorHandle proxy_executor_handle);
 
   int32_t aoti_torch_device_type_cuda() {
     return 1;
@@ -145,10 +160,9 @@ int main() {
   std::cout<<num_inputs<<std::endl;
 
 
-  AtenTensorHandle* inputs;
-  AtenTensorHandle* outputs;
-
-
+  AtenTensorHandle inputs[2];
+  AtenTensorHandle outputs[1];
+  AOTInductorModelContainerRun(container_handle_, inputs, 2, outputs, 1, nullptr, nullptr);
 
 
   return 0;
