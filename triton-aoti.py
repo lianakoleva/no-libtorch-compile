@@ -1,3 +1,4 @@
+import ctypes
 import torch
 torch.set_default_device("cuda")
 import os
@@ -51,10 +52,20 @@ def triton_transpose_acc(x, y) -> torch.Tensor:
 
 
 
+def test_triton_transpose_acc(args):
+    fn_output = triton_transpose_acc(*args)
+    lib_fn = torch._export.aot_load(f"./libfoo.so", "cuda")
+    lib_output = lib_fn(*args) 
+    # TODO test shimmed
+    return torch.equal(fn_output, lib_output)
+
+
+
 torch.manual_seed(0)
 N = 64
 args = torch.randn(N, N), torch.randn(N, N)
 torch._export.aot_compile(triton_transpose_acc, args, {}, options={"aot_inductor.output_path": f"libfoo.so", "abi_compatible": True})
+assert test_triton_transpose_acc(args)
 
 # Remove rogue dependencies
 from subprocess import check_call
