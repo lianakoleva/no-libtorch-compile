@@ -89,8 +89,7 @@ AOTIRuntimeError AOTInductorModelContainerRun(
   }
   AOTITorchError aoti_torch_delete_cuda_stream_guard(
     CUDAStreamGuardHandle guard) {
-    std::string msg = std::string(__func__) + " DNE";
-    perror(msg.c_str());
+    return 0;
   }
   int aoti_torch_device_type_cpu() {
     return 0;
@@ -110,8 +109,7 @@ AOTIRuntimeError AOTInductorModelContainerRun(
     void* stream,
     int32_t device_index,
     CUDAStreamGuardHandle* ret_guard) {
-    std::string msg = std::string(__func__) + " DNE";
-    perror(msg.c_str());
+    return 0;
   }
   AOTITorchError aoti_torch_create_tensor_from_blob(
     void* data,
