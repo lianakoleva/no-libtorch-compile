@@ -9,6 +9,8 @@ extern "C" {
     void* data_ptr;
   };
 
+  struct CUDAStreamGuardOpaque;
+  using CUDAStreamGuardHandle = CUDAStreamGuardOpaque*;
 
   using AOTIRuntimeError = int32_t;
   using AOTITorchError = int32_t;
@@ -146,7 +148,7 @@ int main() {
   AtenTensorHandle* inputs;
   AtenTensorHandle* outputs;
 
-  
+
 
 
   return 0;
