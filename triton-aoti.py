@@ -57,13 +57,14 @@ def test_triton_transpose_acc(args):
     lib_fn = torch._export.aot_load(f"./libfoo.so", "cuda")
     lib_output = lib_fn(*args) 
     # TODO test shimmed
+    print(fn_output)
     return torch.equal(fn_output, lib_output)
 
 
 
 torch.manual_seed(0)
-N = 64
-args = torch.randn(N, N), torch.randn(N, N)
+N = 3
+args = torch.tensor((0, 2, 4, 6., 8, 10, 12, 14, 16)).reshape(3,3), torch.tensor((0, 2., 4, 6, 8, 10, 12, 14, 16)).reshape(3,3)
 torch._export.aot_compile(triton_transpose_acc, args, {}, options={"aot_inductor.output_path": f"libfoo.so", "abi_compatible": True})
 assert test_triton_transpose_acc(args)
 

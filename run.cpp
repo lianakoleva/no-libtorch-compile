@@ -171,8 +171,17 @@ int main() {
   AtenTensorHandle inputs[2];
   aoti_torch_empty_strided(2, sizes, strides, 5, 1, 0, inputs + 0);
   aoti_torch_empty_strided(2, sizes, strides, 5, 1, 0, inputs + 1);
+  float x[9] = {0, 2, 4, 6, 8, 10, 12, 14, 16};
+  cudaMemcpy(inputs[0]->data_ptr, x, 9 * sizeof(float), cudaMemcpyHostToDevice);
+  cudaMemcpy(inputs[1]->data_ptr, x, 9 * sizeof(float), cudaMemcpyHostToDevice);
   AtenTensorHandle outputs[1] = {nullptr};
   AOTInductorModelContainerRun(container_handle_, inputs, 2, outputs, 1, nullptr, nullptr);
+  std::cout << outputs[0] << std::endl;
+  cudaMemcpy(x, outputs[0]->data_ptr, 9 * sizeof(float), cudaMemcpyDeviceToHost);
+  for (int i = 0; i < 9; i++) {
+    std::cout << x[i] << " ";
+  }
+  std::cout << std::endl;
 
   cudaError_t code = cudaDeviceSynchronize();
   if (code != cudaSuccess) { 
