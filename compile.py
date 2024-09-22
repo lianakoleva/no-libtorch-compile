@@ -28,14 +28,14 @@ if __name__ == "__main__":
     parser.add_argument("--checkpoint", type=str, help="checkpoint .pt")
     args = parser.parse_args()
     model, config = load_checkpoint(args.checkpoint)
-    x = torch.randint(0, config.vocab_size, (1, config.max_seq_len // 2))
+    x = torch.randint(0, config.vocab_size, (1, config.max_seq_len // 2), device='cuda')
     # constraints = [
     #     torch._export.dynamic_dim(x, 1),
     #     torch._export.dynamic_dim(x, 1) <= config.max_seq_len,
     #     torch._export.dynamic_dim(x, 1) >= 1,
     # ]
     so_path = torch._export.aot_compile(
-        model,
+        model.to('cuda'),
         (x,),
         # constraints=constraints,
         options={
