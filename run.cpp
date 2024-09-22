@@ -5,9 +5,10 @@
 #include <iostream>
 
 extern "C" {
-  struct AtenTensorHandle {
+  struct AtenTensor {
     void* data_ptr;
   };
+  using AtenTensorHandle = AtenTensor*;
 
   struct CUDAStreamGuardOpaque;
   using CUDAStreamGuardHandle = CUDAStreamGuardOpaque*;
@@ -55,7 +56,7 @@ AOTIRuntimeError AOTInductorModelContainerRun(
   AOTITorchError aoti_torch_get_data_ptr(
     AtenTensorHandle tensor,
     void** ret_data_ptr) {
-    *ret_data_ptr = tensor.data_ptr;
+    *ret_data_ptr = tensor->data_ptr;
    return -2;
   }
   AOTITorchError aoti_torch_get_storage_offset(
@@ -95,8 +96,9 @@ AOTIRuntimeError AOTInductorModelContainerRun(
     return 0;
   }
   AOTITorchError aoti_torch_delete_tensor_object(AtenTensorHandle tensor) {
-    std::string msg = std::string(__func__) + " DNE";
-    perror(msg.c_str());
+    std::cout<<"Deleting "<<tensor<<std::endl;
+    delete tensor;
+    return 0;
   }
   AOTITorchError aoti_torch_get_storage_size(
     AtenTensorHandle tensor,
@@ -122,8 +124,8 @@ AOTIRuntimeError AOTInductorModelContainerRun(
     int32_t device_index,
     AtenTensorHandle* ret_new_tensor)
   {
-    ret_new_tensor = new AtenTensorHandle();
-    ret_new_tensor->data_ptr = (void*)1234;
+    std::string msg = std::string(__func__) + " DNE";
+    perror(msg.c_str());
     return 0;
   }
   int32_t aoti_torch_dtype_float32() {
@@ -137,8 +139,11 @@ AOTIRuntimeError AOTInductorModelContainerRun(
     int32_t device_type,
     int32_t device_index,
     AtenTensorHandle* ret_new_tensor) {
-    std::string msg = std::string(__func__) + " DNE";
-    perror(msg.c_str());
+    *ret_new_tensor = new AtenTensor();
+    std::cout<<"Created "<<ret_new_tensor<<std::endl;
+
+    (*ret_new_tensor)->data_ptr = (void*)123;
+    return 0;
   }
 }
 
