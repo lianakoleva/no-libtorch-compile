@@ -16,20 +16,27 @@ CUDA MODE IRL Project -- WIP
 
 **Goal: Compile a PyTorch program into a (dependency-free) binary through torch.compile()**
 
+- Started with a simple transpose kernel, then tried to expand support to Bert Maher's llama2.so project
+  
+- AOTInductor internals, patching ELF files, dynamic linking, ABI-compatibility
+
+- lots of simplifying assumptions (no support for dynamic shapes)
+
+
 
 APIs to shim:
-- [ ] aoti_torch_create_cuda_stream_guard 
-- [ ] aoti_torch_create_tensor_from_blob
-- [ ] aoti_torch_create_tensor_from_blob_v2
-- [ ] aoti_torch_delete_cuda_stream_guard 
-- [ ] aoti_torch_delete_tensor_object
-- [ ] aoti_torch_device_type_cpu
+- [X] aoti_torch_create_cuda_stream_guard 
+- [X] aoti_torch_create_tensor_from_blob
+- [X] aoti_torch_create_tensor_from_blob_v2
+- [X] aoti_torch_delete_cuda_stream_guard 
+- [X] aoti_torch_delete_tensor_object
+- [X] aoti_torch_device_type_cpu
 - [x] aoti_torch_device_type_cuda
 - [x] aoti_torch_dtype_float32
-- [ ] aoti_torch_empty_strided
-- [ ] aoti_torch_get_data_ptr 
-- [ ] aoti_torch_get_storage_offset
-- [ ] aoti_torch_get_storage_size
-- [ ] aoti_torch_get_strides 
+- [X] aoti_torch_empty_strided
+- [X] aoti_torch_get_data_ptr 
+- [X] aoti_torch_get_storage_offset
+- [X] aoti_torch_get_storage_size
+- [X] aoti_torch_get_strides 
 - [x] aoti_torch_grad_mode_is_enabled 
 - [x] aoti_torch_grad_mode_set_enabled
