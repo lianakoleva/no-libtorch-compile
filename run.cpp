@@ -33,9 +33,7 @@ extern "C" {
     return false;
   }
   void aoti_torch_grad_mode_set_enabled(bool enabled) {
-    std::string msg = std::string(__func__) + " DNE";
-    perror(msg.c_str());
-    return 0;
+     std::cout << __func__ << " vous est ici!" << std::endl;
   }
   AOTITorchError aoti_torch_get_data_ptr(
     AtenTensorHandle tensor,
