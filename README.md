@@ -1,6 +1,21 @@
 CUDA MODE IRL Project -- WIP
 
-Goal: Compile a PyTorch program into a (dependency-free) binary through torch.compile
+Background:
+
+AOTInductor is a specialized version of TorchInductor , designed to process exported PyTorch models, optimize them, and produce shared libraries as well as other relevant artifacts. 
+
+These compiled artifacts are specifically crafted for deployment in non-Python environments, which are frequently employed for inference deployments on the server side.
+
+A somewhat little known feature is that torch.compile can convert a PyTorch program into a C++ .so binary file. 
+
+We can then load the shared library, enabling us to conduct model predictions directly within a C++ environment.
+
+Unfortunately, today, running it still requires a libtorch dependency (very large filesize especially with CUDA). 
+
+Upon inspection of the symbol table and other attributes of the binary , we see that there is a fairly limited amount of APIs that need to be shimmed.
+
+Goal: Compile a PyTorch program into a (dependency-free) binary through torch.compile()
+
 
 APIs to shim:
 - [ ] aoti_torch_create_cuda_stream_guard 
