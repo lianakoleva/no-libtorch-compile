@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "cuda_runtime.h"
 #include <dlfcn.h>
 #include <stdlib.h>
 #include <string>
@@ -170,6 +171,12 @@ int main() {
   aoti_torch_empty_strided(2, sizes, strides, 5, 1, 0, inputs + 1);
   AtenTensorHandle outputs[1] = {nullptr};
   AOTInductorModelContainerRun(container_handle_, inputs, 2, outputs, 1, nullptr, nullptr);
+
+  cudaError_t code = cudaDeviceSynchronize();
+  if (code != cudaSuccess) { 
+    std::cerr << cudaGetErrorString(code) << std::endl;
+    return -1;
+  }
 
 
   return 0;
