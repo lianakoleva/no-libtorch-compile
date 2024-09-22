@@ -56,6 +56,7 @@ AOTIRuntimeError AOTInductorModelContainerRun(
     AtenTensorHandle tensor,
     void** ret_data_ptr) {
     *ret_data_ptr = tensor.data_ptr;
+   return -2;
   }
   AOTITorchError aoti_torch_get_storage_offset(
     AtenTensorHandle tensor,
